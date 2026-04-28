@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
+            $table->foreignId('technician_id')->nullable()->constrained('technicians')->nullOnDelete();
+            $table->date('tanggal_servis');
+            $table->text('keluhan');
+            $table->text('tindakan')->nullable();
+            $table->integer('biaya_servis')->default(0);
+            $table->enum('status', ['proses', 'selesai', 'batal'])->default('proses');
             $table->timestamps();
         });
     }

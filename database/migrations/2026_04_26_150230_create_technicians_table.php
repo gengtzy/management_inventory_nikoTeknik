@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inbounds', function (Blueprint $table) {
+        Schema::create('technicians', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('item_id')->constrained('items')->cascadeOnDelete();
-        $table->integer('jumlah_masuk');
-        $table->date('tanggal_masuk');
-        $table->text('keterangan')->nullable();
+        $table->string('nama_teknisi');
+        $table->string('no_hp')->nullable();
+        $table->string('spesialisasi')->nullable(); // Contoh: Spesialis Inverter, Cuci Besar, dll
         $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inbounds');
+        Schema::dropIfExists('technicians');
     }
 };

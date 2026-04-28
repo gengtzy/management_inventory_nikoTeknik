@@ -1,5 +1,5 @@
 <header
-    class="sticky top-0 flex w-full bg-white border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 xl:border-b"
+    class="sticky top-0 flex w-full bg-white border-gray-200 z-[9999] dark:border-gray-800 dark:bg-gray-900 xl:border-b"
     x-data="{
         isApplicationMenuOpen: false,
         toggleApplicationMenu() {
@@ -10,7 +10,6 @@
         <div
             class="flex items-center justify-between w-full gap-2 px-3 py-3 border-b border-gray-200 dark:border-gray-800 sm:gap-4 xl:justify-normal xl:border-b-0 xl:px-0 lg:py-4">
 
-            <!-- Desktop Sidebar Toggle Button (visible on xl and up) -->
             <button
                 class="hidden xl:flex items-center justify-center w-10 h-10 text-gray-500 border border-gray-200 rounded-lg dark:border-gray-800 dark:text-gray-400 lg:h-11 lg:w-11"
                 :class="{ 'bg-gray-100 dark:bg-white/[0.03]': !$store.sidebar.isExpanded }"
@@ -29,7 +28,6 @@
                 </svg>
             </button>
 
-            <!-- Mobile Menu Toggle Button (visible below xl) -->
             <button
                 class="flex xl:hidden items-center justify-center w-10 h-10 text-gray-500 rounded-lg dark:text-gray-400 lg:h-11 lg:w-11"
                 :class="{ 'bg-gray-100 dark:bg-white/[0.03]': $store.sidebar.isMobileOpen }"
@@ -48,53 +46,27 @@
                 </svg>
             </button>
 
-            <!-- Logo (mobile only) -->
-            <a href="/" class="xl:hidden">
-                <img class="dark:hidden" src="/images/logo/logo.svg" alt="Logo" />
-                <img class="hidden dark:block" src="/images/logo/logo-dark.svg" alt="Logo" />
+            <a href="/" class="xl:hidden flex items-center">
+                <h2 class="text-xl font-extrabold text-gray-900 dark:text-white uppercase tracking-wide">
+                    NIKO <span class="text-brand-500">TEKNIK</span>
+                </h2>
             </a>
 
-            <!-- Application Menu Toggle (mobile only) -->
             <button @click="toggleApplicationMenu()"
-                class="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg z-99999 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 xl:hidden">
-                <!-- Dots Icon -->
+                class="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg z-[9999] hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 xl:hidden">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path fill-rule="evenodd" clip-rule="evenodd"
                         d="M5.99902 10.4951C6.82745 10.4951 7.49902 11.1667 7.49902 11.9951V12.0051C7.49902 12.8335 6.82745 13.5051 5.99902 13.5051C5.1706 13.5051 4.49902 12.8335 4.49902 12.0051V11.9951C4.49902 11.1667 5.1706 10.4951 5.99902 10.4951ZM17.999 10.4951C18.8275 10.4951 19.499 11.1667 19.499 11.9951V12.0051C19.499 12.8335 18.8275 13.5051 17.999 13.5051C17.1706 13.5051 16.499 12.8335 16.499 12.0051V11.9951C16.499 11.1667 17.1706 10.4951 17.999 10.4951ZM13.499 11.9951C13.499 11.1667 12.8275 10.4951 11.999 10.4951C11.1706 10.4951 10.499 11.1667 10.499 11.9951V12.0051C10.499 12.8335 11.1706 13.5051 11.999 13.5051C12.8275 13.5051 13.499 12.8335 13.499 12.0051V11.9951Z"
                         fill="currentColor" />
                 </svg>
             </button>
-
-            <!-- Search Bar (desktop only) -->
-            <div class="hidden xl:block">
-                <form>
-                    <div class="relative">
-                        <span class="absolute -translate-y-1/2 pointer-events-none left-4 top-1/2">
-                            <!-- Search Icon -->
-                            <svg class="fill-gray-500 dark:fill-gray-400" width="20" height="20"
-                                viewBox="0 0 20 20" fill="none">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M3.04175 9.37363C3.04175 5.87693 5.87711 3.04199 9.37508 3.04199C12.8731 3.04199 15.7084 5.87693 15.7084 9.37363C15.7084 12.8703 12.8731 15.7053 9.37508 15.7053C5.87711 15.7053 3.04175 12.8703 3.04175 9.37363ZM9.37508 1.54199C5.04902 1.54199 1.54175 5.04817 1.54175 9.37363C1.54175 13.6991 5.04902 17.2053 9.37508 17.2053C11.2674 17.2053 13.003 16.5344 14.357 15.4176L17.177 18.238C17.4699 18.5309 17.9448 18.5309 18.2377 18.238C18.5306 17.9451 18.5306 17.4703 18.2377 17.1774L15.418 14.3573C16.5365 13.0033 17.2084 11.2669 17.2084 9.37363C17.2084 5.04817 13.7011 1.54199 9.37508 1.54199Z"
-                                    fill="" />
-                            </svg>
-                        </span>
-                        <input type="text" placeholder="Search or type command..."
-                            class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-200 bg-transparent py-2.5 pl-12 pr-14 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800 dark:bg-white/3 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 xl:w-[430px]" />
-                        <button
-                            class="absolute right-2.5 top-1/2 inline-flex -translate-y-1/2 items-center gap-0.5 rounded-lg border border-gray-200 bg-gray-50 px-[7px] py-[4.5px] text-xs -tracking-[0.2px] text-gray-500 dark:border-gray-800 dark:bg-white/[0.03] dark:text-gray-400">
-                            <span> ⌘ </span>
-                            <span> K </span>
-                        </button>
-                    </div>
-                </form>
+            
             </div>
-        </div>
 
-        <!-- Application Menu (mobile) and Right Side Actions (desktop) -->
         <div :class="isApplicationMenuOpen ? 'flex' : 'hidden'"
             class="items-center justify-between w-full gap-4 px-5 py-4 xl:flex shadow-theme-md xl:justify-end xl:px-0 xl:shadow-none">
+            
             <div class="flex items-center gap-2 2xsm:gap-3">
-                <!-- Theme Toggle Button -->
                 <button
                     class="relative flex items-center justify-center text-gray-500 transition-colors bg-white border border-gray-200 rounded-full hover:text-dark-900 h-11 w-11 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
                     @click="$store.theme.toggle()">
@@ -111,13 +83,44 @@
                             fill="currentColor" />
                     </svg>
                 </button>
+                </div>
 
-                <!-- Notification Dropdown -->
-                <x-header.notification-dropdown />
+            <div class="relative" x-data="{ isOpen: false }" @click.outside="isOpen = false">
+                <button @click="isOpen = !isOpen" class="flex items-center gap-3 rounded-full outline-hidden px-2 py-1 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
+                    <span class="block text-right">
+                        <span class="block text-sm font-medium text-gray-900 dark:text-white">Admin Niko Teknik</span>
+                        <span class="block text-xs font-medium text-gray-500 dark:text-gray-400">Administrator</span>
+                    </span>
+                    <span class="h-10 w-10 rounded-full overflow-hidden flex justify-center items-center bg-brand-500 text-white font-bold">
+                        A
+                    </span>
+                    <svg class="fill-current text-gray-500 dark:text-gray-400" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.410765 0.910734C0.736202 0.585297 1.26384 0.585297 1.58928 0.910734L6.00002 5.32148L10.4108 0.910734C10.7362 0.585297 11.2638 0.585297 11.5893 0.910734C11.9147 1.23617 11.9147 1.76381 11.5893 2.08924L6.58928 7.08924C6.26384 7.41468 5.7362 7.41468 5.41076 7.08924L0.410765 2.08924C0.0853277 1.76381 0.0853277 1.23617 0.410765 0.910734Z" fill=""></path>
+                    </svg>
+                </button>
+
+                <div x-show="isOpen" x-transition.opacity
+                    class="absolute right-0 mt-3 flex w-[200px] flex-col rounded-xl border border-gray-200 bg-white p-3 shadow-theme-md dark:border-gray-800 dark:bg-gray-900"
+                    style="display: none;">
+                    
+                    <div class="border-b border-gray-100 pb-3 mb-3 dark:border-gray-800">
+                        <span class="block text-sm font-medium text-gray-900 dark:text-white px-3">Admin Niko Teknik</span>
+                        <span class="block text-xs font-medium text-gray-500 dark:text-gray-400 px-3">admin@nikoteknik.com</span>
+                    </div>
+
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-brand-500 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-brand-500">
+                            <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M15.75 4H18C18.5523 4 19 4.44772 19 5V19C19 19.5523 18.5523 20 18 20H15.75C15.3358 20 15 20.3358 15 20.75C15 21.1642 15.3358 21.5 15.75 21.5H18C19.3807 21.5 20.5 20.3807 20.5 19V5C20.5 3.61929 19.3807 2.5 18 2.5H15.75C15.3358 2.5 15 2.83579 15 3.25C15 3.66421 15.3358 4 15.75 4Z"/>
+                                <path d="M10.2803 7.21967C10.5732 6.92678 11.0481 6.92678 11.341 7.21967L15.841 11.7197C16.1339 12.0126 16.1339 12.4874 15.841 12.7803L11.341 17.2803C11.0481 17.5732 10.5732 17.5732 10.2803 17.2803C9.98744 16.9874 9.98744 16.5126 10.2803 16.2197L13.4393 13.0607H3.5C3.08579 13.0607 2.75 12.7249 2.75 12.3107C2.75 11.8965 3.08579 11.5607 3.5 11.5607H13.4393L10.2803 8.40165C9.98744 8.10876 9.98744 7.63388 10.2803 7.34099C10.2803 7.30062 10.2803 7.25997 10.2803 7.21967Z"/>
+                            </svg>
+                            Keluar Sistem
+                        </button>
+                    </form>
+                </div>
             </div>
-
-            <!-- User Dropdown -->
-            <x-header.user-dropdown />
+            
         </div>
     </div>
 </header>
