@@ -9,15 +9,30 @@
     <div class="space-y-6">
         
         <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 print:hidden">
-            <form action="{{ route('reports.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <!-- Gunakan Alpine.js (x-data) untuk deteksi Jenis Laporan secara langsung -->
+            <form x-data="{ reportType: '{{ $type }}' }" action="{{ route('reports.index') }}" method="GET" class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-end">
                 
                 <div>
                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Jenis Laporan</label>
                     <div class="relative z-20 bg-transparent">
-                        <select name="type" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-11 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
-                            <option value="sales" {{ $type == 'sales' ? 'selected' : '' }}>Laporan Penjualan AC</option>
-                            <option value="services" {{ $type == 'services' ? 'selected' : '' }}>Laporan Jasa Servis</option>
-                            <option value="inbounds" {{ $type == 'inbounds' ? 'selected' : '' }}>Laporan Barang Masuk</option>
+                        <select name="type" x-model="reportType" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-11 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                            <option value="sales">Laporan Penjualan AC</option>
+                            <option value="services">Laporan Jasa Servis</option>
+                            <option value="inbounds">Laporan Barang Masuk</option>
+                        </select>
+                        <span class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8l5 5 5-5"/></svg></span>
+                    </div>
+                </div>
+
+                <!-- Dropdown Merek (HANYA MUNCUL SAAT REPORT TYPE == 'sales') -->
+                <div x-show="reportType === 'sales'" style="display: {{ $type == 'sales' ? 'block' : 'none' }}">
+                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Filter Merek AC</label>
+                    <div class="relative z-20 bg-transparent">
+                        <select name="brand" class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-11 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                            <option value="all">Semua Merek</option>
+                            @foreach($brands as $b)
+                                <option value="{{ $b }}" {{ $selectedBrand == $b ? 'selected' : '' }}>{{ $b }}</option>
+                            @endforeach
                         </select>
                         <span class="pointer-events-none absolute top-1/2 right-4 z-30 -translate-y-1/2 text-gray-500"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 8l5 5 5-5"/></svg></span>
                     </div>
@@ -52,9 +67,13 @@
                 <h1 class="text-2xl font-bold uppercase text-black text-center">NIKO TEKNIK AC</h1>
                 <p class="text-center text-sm text-black">Jl. Raya Berbek No. 12 C Waru - Sidoarjo | HP: 0877 7020 2671</p>
                 <h2 class="text-xl font-bold uppercase text-black text-center mt-4">
-                    @if($type == 'sales') LAPORAN PENJUALAN AC
-                    @elseif($type == 'services') LAPORAN JASA SERVIS (SELESAI)
-                    @else LAPORAN BARANG MASUK (RESTOK) @endif
+                    @if($type == 'sales') 
+                        LAPORAN PENJUALAN AC {{ $selectedBrand != 'all' ? '- MEREK ' . strtoupper($selectedBrand) : '' }}
+                    @elseif($type == 'services') 
+                        LAPORAN JASA SERVIS (SELESAI)
+                    @else 
+                        LAPORAN BARANG MASUK (RESTOK) 
+                    @endif
                 </h2>
                 <p class="text-center text-sm text-black">Periode: {{ \Carbon\Carbon::parse($startDate)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }}</p>
             </div>
