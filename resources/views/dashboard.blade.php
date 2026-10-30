@@ -6,6 +6,32 @@
     <p class="text-sm text-gray-500 dark:text-gray-400">Ringkasan performa Niko Teknik AC bulan ini ({{ \Carbon\Carbon::now()->translatedFormat('F Y') }}).</p>
 </div>
 
+{{-- Banner Informasi Data Dummy (Portofolio) --}}
+<div class="mb-6 rounded-2xl border border-blue-500/30 bg-blue-50/70 p-4 dark:border-blue-500/20 dark:bg-blue-500/10 sm:p-5">
+    <div class="flex items-start gap-3.5">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-500 text-white shadow-xs">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+        </div>
+        <div class="flex-1">
+            <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-sm font-semibold text-gray-900 dark:text-white">
+                    Pemberitahuan Demo Portofolio
+                </h3>
+                <span class="rounded-full bg-blue-500/15 px-2.5 py-0.5 text-[11px] font-semibold text-blue-600 dark:text-blue-400">
+                    Data Simulasi / Dummy
+                </span>
+            </div>
+            <p class="mt-1 text-xs text-gray-600 dark:text-gray-300 sm:text-sm leading-relaxed">
+                Seluruh data yang tertera di dalam aplikasi ini (stok unit AC, transaksi penjualan, tiket servis, data pelanggan, teknisi, serta laporan pendapatan) merupakan <strong>data dummy / simulasi</strong> yang dibuat khusus untuk keperluan demonstrasi portofolio sistem dan bukan data operasional nyata.
+            </p>
+        </div>
+    </div>
+</div>
+
 <div class="grid grid-cols-12 gap-4 md:gap-6">
     
     <div class="col-span-12">
