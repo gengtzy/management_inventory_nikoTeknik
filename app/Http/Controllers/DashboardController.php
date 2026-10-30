@@ -49,25 +49,38 @@ class DashboardController extends Controller
             $serviceData[$i] = 0;
         }
 
+        // Deteksi driver database (MySQL vs SQLite vs PostgreSQL/Supabase)
+        $driver = DB::connection()->getDriverName();
+        if ($driver === 'sqlite') {
+            $daySaleField = "CAST(strftime('%d', tanggal_jual) AS INTEGER)";
+            $dayServiceField = "CAST(strftime('%d', tanggal_servis) AS INTEGER)";
+        } elseif ($driver === 'pgsql') {
+            $daySaleField = "EXTRACT(DAY FROM tanggal_jual)";
+            $dayServiceField = "EXTRACT(DAY FROM tanggal_servis)";
+        } else {
+            $daySaleField = "DAY(tanggal_jual)";
+            $dayServiceField = "DAY(tanggal_servis)";
+        }
+
         // Ambil data penjualan harian
-        $dailySales = Sale::select(DB::raw('DAY(tanggal_jual) as hari'), DB::raw('SUM(total_harga) as total'))
+        $dailySales = Sale::select(DB::raw("{$daySaleField} as hari"), DB::raw('SUM(total_harga) as total'))
             ->whereMonth('tanggal_jual', $bulanIni)
             ->whereYear('tanggal_jual', $tahunIni)
             ->groupBy('hari')->get();
             
         foreach ($dailySales as $sale) {
-            $salesData[$sale->hari] = $sale->total;
+            $salesData[(int) $sale->hari] = $sale->total;
         }
 
         // Ambil data servis harian
-        $dailyServices = Service::select(DB::raw('DAY(tanggal_servis) as hari'), DB::raw('SUM(biaya_servis) as total'))
+        $dailyServices = Service::select(DB::raw("{$dayServiceField} as hari"), DB::raw('SUM(biaya_servis) as total'))
             ->where('status', 'selesai') // Hanya hitung yang sudah selesai
             ->whereMonth('tanggal_servis', $bulanIni)
             ->whereYear('tanggal_servis', $tahunIni)
             ->groupBy('hari')->get();
 
         foreach ($dailyServices as $service) {
-            $serviceData[$service->hari] = $service->total;
+            $serviceData[(int) $service->hari] = $service->total;
         }
 
         return view('dashboard', compact(
