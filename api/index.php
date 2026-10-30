@@ -1,5 +1,15 @@
 <?php
 
+// Suppress raw display errors and deprecation warnings in response output
+ini_set('display_errors', '0');
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+
+// Ensure HTTPS is recognized behind Vercel reverse proxy
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+    $_SERVER['SERVER_PORT'] = '443';
+}
+
 // Forward Vercel requests to Laravel
 $storageDir = '/tmp/storage';
 $dirs = [
@@ -39,4 +49,3 @@ if ($connection === 'sqlite') {
 
 // Forward to public/index.php
 require __DIR__ . '/../public/index.php';
-
